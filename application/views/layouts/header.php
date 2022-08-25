@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <title><?= $title; ?></title>
     <link href="<?= base_url('assets/sbadmin/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="<?= base_url('assets/sbadmin/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/css/datatables.css') ?>">
+    <style>
+        table {
+            font-size: 13px !important;
+            width: 100% !important;
+        }
+    </style>
 
 </head>
 
@@ -19,17 +27,24 @@
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin'); ?>">
-                <div class="sidebar-brand-icon">
-                    <i class="fa fa-archive" aria-hidden="true"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('home'); ?>">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fa fa-file" aria-hidden="true"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SIBMAPAN</div>
+                <div class="sidebar-brand-text mx-3">Persuratan</div>
             </a>
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('admin'); ?>">
+            <?php
+            $active = '';
+            if ($this->uri->segment(1) == 'home' && $this->uri->segment(2) != NULL) {
+                $active = '';
+            } else if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'home') {
+                $active = 'active';
+            } ?>
+            <li class="nav-item <?= $active; ?>">
+                <a class="nav-link" href="<?= base_url('home'); ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -40,56 +55,31 @@
                 Menu
             </div>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMaster" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Data Master</span>
-                </a>
-                <div id="dataMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<?= base_url('merk'); ?>">Data Merk</a>
-                        <a class="collapse-item" href="<?= base_url('satuan'); ?>">Data Satuan</a>
-                        <a class="collapse-item" href="<?= base_url('kondisi'); ?>">Data Kondisi</a>
-                        <a class="collapse-item" href="<?= base_url('barang'); ?>">Data Barang</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataTransaksi" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Transaksi</span>
-                </a>
-                <div id="dataTransaksi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<?= base_url('barangmasuk'); ?>">Barang Masuk</a>
-                        <a class="collapse-item" href="<?= base_url('barangkeluar'); ?>">Barang Keluar</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataLaporan" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Laporan</span>
-                </a>
-                <div id="dataLaporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<?= base_url('barang/laporan'); ?>">Laporan Barang Saat Ini</a>
-                        <a class="collapse-item" href="<?= base_url('barangmasuk/laporan'); ?>">Laporan Barang Masuk</a>
-                        <a class="collapse-item" href="<?= base_url('barangkeluar/laporan'); ?>">Laporan Barang Keluar</a>
-                    </div>
-                </div>
-            </li>
-            <?php if ($this->session->userdata('role') == 'admin') {
-            ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('user'); ?>">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Data User</span></a>
-                </li>
             <?php
+            $active = '';
+            if ($this->uri->segment(1) == 'home' && $this->uri->segment(2) == 'suratMasuk') {
+                $active = 'active';
+            } else {
+                $active = '';
             } ?>
+            <li class="nav-item <?= $active; ?>">
+                <a class="nav-link" href="<?= base_url('home/suratMasuk'); ?>">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Surat Masuk</span></a>
+            </li>
+
+            <?php
+            $active = '';
+            if ($this->uri->segment(1) == 'home' && $this->uri->segment(2) == 'disPosisi') {
+                $active = 'active';
+            } else {
+                $active = '';
+            } ?>
+            <li class="nav-item <?= $active; ?>">
+                <a class="nav-link" href="<?= base_url('home/disPosisi'); ?>">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Disposisi</span></a>
+            </li>
 
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -108,42 +98,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-3"><?= ($this->session->userdata('nama')) ?></span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets') ?>/img/profile.png">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-
-                            <!-- Modal Logout -->
-                            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                            <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal Logout -->
-                        </li>
-                    </ul>
 
                 </nav>
 
